@@ -209,7 +209,7 @@
 		</div>
 		<div class="row">
 			<div class="col-lg-8 col-lg-offset-2">
-				<form action="http://formspree.io/afamezechukwu@gmail.com" method="POST" name="sentMessage" id="contactForm" novalidate="">
+				<form action="" method="POST" name="sentMessage" id="contactForm" novalidate="" enctype="text/plain">
 					<div class="row control-group">
 						<div class="form-group col-xs-12 floating-label-form-group controls">
 							<label>Name</label>
@@ -225,13 +225,13 @@
 						</div>
 					</div>
 					<div>
-						<input type="hidden" name="_subject" value="New submission!">
+						<input type="hidden" name="subject" id="subject" value="">
 						<input type="text" name="_gotcha" style="display:none">
 					</div>
 					<div class="row control-group">
 						<div class="form-group col-xs-12 floating-label-form-group controls">
 							<label>Message</label>
-							<textarea rows="5" name="message" class="form-control" placeholder="Message" id="message" required="" data-validation-required-message="Please enter a message."></textarea>
+							<textarea rows="5" name="body" class="form-control" placeholder="Message" id="body" required="" data-validation-required-message="Please enter a message."></textarea>
 							<p class="help-block text-danger"></p>
 						</div>
 					</div>

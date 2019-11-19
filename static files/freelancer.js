@@ -35,3 +35,16 @@ $('body').scrollspy({
 $('.navbar-collapse ul li a').click(function() {
     $('.navbar-toggle:visible').click();
 });
+
+// Form submission for email
+$('#contactForm').on("submit", function() {
+    var email = $("#email").val();
+    var subjectBody = "New email from " + email;
+    $("#subject").val(subjectBody);
+    $(this).attr('action', 'mailto:afamezechukwu@gmail.com');
+});
+
+String.prototype.replaceAll = function(str1, str2, ignore) 
+{
+    return this.replace(new RegExp(str1.replace(/([\/\,\!\\\^\$\{\}\[\]\(\)\.\*\+\?\|\<\>\-\&])/g,"\\$&"),(ignore?"gi":"g")),(typeof(str2)=="string")?str2.replace(/\$/g,"$$$$"):str2);
+} 
