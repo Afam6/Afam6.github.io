@@ -6,19 +6,17 @@ import {
   useAnimations,
   useGLTF,
 } from '@react-three/drei';
-import { Canvas, useFrame } from '@react-three/fiber';
+import { Canvas, ThreeEvent, useFrame } from '@react-three/fiber';
 import { useReducedMotion } from 'motion/react';
 import { useTheme } from 'next-themes';
-import {
-  Suspense,
-  useEffect,
-  useRef,
-} from 'react';
+import { Suspense, useEffect, useRef, useState } from 'react';
 import {
   Group,
+  MathUtils,
   Mesh,
   MeshStandardMaterial,
   PointLight,
+  Vector2,
 } from 'three';
 
 type ThemeProps = {
@@ -73,16 +71,18 @@ function AnimatedLights({ isDark }: ThemeProps) {
 
 function TechnotronModel({ isDark }: ThemeProps) {
   const modelRef = useRef<Group>(null);
+  const spinVelocityRef = useRef(new Vector2());
+  const pointerSampleRef = useRef<{
+    x: number;
+    y: number;
+    time: number;
+  } | null>(null);
+
   const prefersReducedMotion = useReducedMotion();
 
-  const { scene, animations } = useGLTF(
-    '/models/technotron.glb',
-  );
+  const { scene, animations } = useGLTF('/models/technotron.glb');
 
-  const { actions } = useAnimations(
-    animations,
-    modelRef,
-  );
+  const { actions } = useAnimations(animations, modelRef);
 
   useEffect(() => {
     const animation = actions.Animation;
@@ -96,10 +96,7 @@ function TechnotronModel({ isDark }: ThemeProps) {
       return;
     }
 
-    animation
-      .reset()
-      .setEffectiveTimeScale(0.36)
-      .play();
+    animation.reset().setEffectiveTimeScale(0.36).play();
 
     return () => {
       animation.stop();
@@ -121,9 +118,7 @@ function TechnotronModel({ isDark }: ThemeProps) {
           return;
         }
 
-        material.color.set(
-          isDark ? '#405bb1' : '#7894dd',
-        );
+        material.color.set(isDark ? '#405bb1' : '#7894dd');
 
         material.roughness = isDark ? 0.46 : 0.34;
         material.metalness = 0.02;
@@ -142,24 +137,115 @@ function TechnotronModel({ isDark }: ThemeProps) {
       return;
     }
 
+    const velocity = spinVelocityRef.current;
+
+    // The pointer-generated momentum.
+    model.rotation.x += velocity.x * delta;
+    model.rotation.y += velocity.y * delta;
+
+    // Retain a subtle default rotation after the momentum fades.
+    model.rotation.y += delta * 0.12;
+    model.rotation.z += delta * 0.018;
+
+    // Frame-rate-independent friction.
+    const friction = Math.exp(-1.65 * delta);
+    velocity.multiplyScalar(friction);
+
+    if (velocity.lengthSq() < 0.000001) {
+      velocity.set(0, 0);
+    }
+
     const time = clock.elapsedTime;
 
-    // Slow whole-object rotation.
-    model.rotation.y += delta * 0.12;
+    const idleScale = 1 + Math.sin(time * 0.35) * 0.012;
 
-    // Gentle tilting makes the structure feel less mechanical.
-    model.rotation.x = Math.sin(time * 0.22) * 0.08;
-    model.rotation.z = Math.cos(time * 0.18) * 0.04;
-
-    // Very restrained breathing and floating.
-    const scale = 1 + Math.sin(time * 0.35) * 0.012;
-
-    model.scale.setScalar(scale);
+    model.scale.setScalar(idleScale);
     model.position.y = Math.sin(time * 0.4) * 0.025;
   });
 
+  const handlePointerOver = (event: ThreeEvent<PointerEvent>) => {
+    event.stopPropagation();
+
+    pointerSampleRef.current = {
+      x: event.nativeEvent.clientX,
+      y: event.nativeEvent.clientY,
+      time: event.nativeEvent.timeStamp,
+    };
+  };
+
+  const handlePointerMove = (event: ThreeEvent<PointerEvent>) => {
+    event.stopPropagation();
+
+    const previous = pointerSampleRef.current;
+    const nativeEvent = event.nativeEvent;
+
+    if (!previous) {
+      pointerSampleRef.current = {
+        x: nativeEvent.clientX,
+        y: nativeEvent.clientY,
+        time: nativeEvent.timeStamp,
+      };
+
+      return;
+    }
+
+    const elapsedMilliseconds = Math.max(
+      nativeEvent.timeStamp - previous.time,
+      4,
+    );
+
+    const elapsedSeconds = elapsedMilliseconds / 1000;
+
+    const pointerVelocityX =
+      (nativeEvent.clientX - previous.x) / elapsedSeconds;
+
+    const pointerVelocityY =
+      (nativeEvent.clientY - previous.y) / elapsedSeconds;
+
+    const angularVelocity = spinVelocityRef.current;
+    const sensitivity = 0.00125;
+
+    const targetX = MathUtils.clamp(pointerVelocityY * sensitivity, -3.2, 3.2);
+
+    const targetY = MathUtils.clamp(pointerVelocityX * sensitivity, -3.2, 3.2);
+
+    // Blend the new gesture with existing momentum.
+    angularVelocity.x = MathUtils.lerp(angularVelocity.x, targetX, 0.68);
+
+    angularVelocity.y = MathUtils.lerp(angularVelocity.y, targetY, 0.68);
+
+    pointerSampleRef.current = {
+      x: nativeEvent.clientX,
+      y: nativeEvent.clientY,
+      time: nativeEvent.timeStamp,
+    };
+  };
+
+  const handlePointerOut = (event: ThreeEvent<PointerEvent>) => {
+    event.stopPropagation();
+
+    // We discard pointer tracking but preserve angular
+    // velocity, allowing the model to keep spinning.
+    pointerSampleRef.current = null;
+  };
+
   return (
     <group ref={modelRef} dispose={null}>
+      <mesh
+        onPointerOver={handlePointerOver}
+        onPointerMove={handlePointerMove}
+        onPointerOut={handlePointerOut}
+      >
+        <sphereGeometry args={[1.3, 32, 32]} />
+
+        <meshBasicMaterial
+          transparent
+          opacity={0}
+          depthWrite={false}
+          colorWrite={false}
+        />
+      </mesh>
+
       <primitive object={scene} />
     </group>
   );
@@ -169,9 +255,13 @@ export function AdroitOrb() {
   const { resolvedTheme } = useTheme();
   const isDark = resolvedTheme === 'dark';
 
+  const [isDragging, setIsDragging] = useState(false);
+
   return (
     <div
-      className='relative my-0 h-[42vh] min-h-[340px] max-h-[460px] w-full max-w-[600px] cursor-grab touch-none active:cursor-grabbing'
+      className={`relative my-0 h-[42vh] min-h-[340px] max-h-[460px] w-full max-w-[600px] touch-none ${
+        isDragging ? 'cursor-grabbing' : 'cursor-grab'
+      }`}
       aria-label='Interactive animated Technotron'
       role='img'
     >
@@ -205,6 +295,8 @@ export function AdroitOrb() {
           dampingFactor={0.08}
           rotateSpeed={0.65}
           target={[0, 0, 0]}
+          onStart={() => setIsDragging(true)}
+          onEnd={() => setIsDragging(false)}
         />
       </Canvas>
     </div>
