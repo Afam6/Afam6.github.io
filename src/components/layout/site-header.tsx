@@ -6,6 +6,7 @@ import { motion, useMotionValueEvent, useScroll } from 'motion/react';
 
 import { ThemeToggle } from '@/components/layout/theme-toggle';
 import { Button } from '@/components/ui/button';
+import { AdroitLogo } from './adroit-logo';
 
 const navigation = [
   { label: 'Work', href: '#work' },
@@ -42,10 +43,10 @@ export function SiteHeader() {
       <div className='mx-auto grid h-16 max-w-6xl grid-cols-[1fr_auto_1fr] items-center px-6'>
         <a
           href='#top'
-          className='w-fit text-base font-bold tracking-[-0.04em]'
-          aria-label='Adroit — home'
+          aria-label='Adroit — back to the top'
+          className='group inline-flex items-center gap-2.5'
         >
-          ADROIT
+          <AdroitLogo className='size-8 transition-transform duration-300 ease-out group-hover:scale-105' />
         </a>
 
         <nav
