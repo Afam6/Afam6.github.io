@@ -1,28 +1,13 @@
 import { SiteHeader } from '@/components/layout/site-header';
+import { Hero } from "@/components/sections/hero";
 
 export default function Home() {
   return (
     <>
       <SiteHeader />
 
-      <main id='top'>
-        <section className='flex min-h-screen items-center px-6 pt-28'>
-          <div className='mx-auto w-full max-w-7xl'>
-            <p className='mb-5 text-sm font-medium text-muted-foreground'>
-              Software Developer · Melbourne, Australia
-            </p>
-
-            <h1 className='max-w-4xl text-5xl font-semibold tracking-[-0.05em] text-balance sm:text-6xl lg:text-8xl'>
-              I build thoughtful software for real-world problems.
-            </h1>
-
-            <p className='mt-8 max-w-2xl text-lg leading-8 text-muted-foreground sm:text-xl'>
-              I&apos;m Afam Ezechukwu — a full-stack developer focused on modern
-              web products, thoughtful interfaces, and making complex systems
-              feel simple.
-            </p>
-          </div>
-        </section>
+      <main>
+        <Hero />
 
         <section id='work' className='min-h-[80vh] border-t px-6 py-28'>
           <div className='mx-auto max-w-7xl'>
