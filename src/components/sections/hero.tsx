@@ -1,5 +1,6 @@
 import { Mail } from 'lucide-react';
-import { TypedHeading } from "@/components/sections/typed-heading";
+import { TypedHeading } from '@/components/sections/typed-heading';
+import { AdroitOrb } from '@/components/sections/adroit-orb';
 
 export function Hero() {
   return (
@@ -12,18 +13,7 @@ export function Hero() {
           Software Developer · Melbourne, Australia
         </p>
 
-        <div
-          className='relative my-10 grid size-44 place-items-center sm:my-12 sm:size-52'
-          aria-hidden='true'
-        >
-          <div className='absolute inset-0 rounded-full border border-border' />
-
-          <div className='absolute inset-7 rotate-45 rounded-[2rem] border border-border bg-muted/30' />
-
-          <div className='relative grid size-20 place-items-center rounded-3xl border border-border bg-background shadow-sm'>
-            <span className='text-4xl font-semibold tracking-[-0.08em]'>A</span>
-          </div>
-        </div>
+        <AdroitOrb />
 
         <TypedHeading />
 
