@@ -1,14 +1,14 @@
 import type { Metadata } from 'next';
-import { Geist_Mono, Montserrat } from "next/font/google";
+import { Geist_Mono, Montserrat } from 'next/font/google';
 
 import { ThemeProvider } from '@/components/providers/theme-provider';
 
 import './globals.css';
 
 const montserrat = Montserrat({
-  variable: "--font-montserrat",
-  subsets: ["latin"],
-  display: "swap",
+  variable: '--font-montserrat',
+  subsets: ['latin'],
+  display: 'swap',
 });
 
 const geistMono = Geist_Mono({
@@ -29,7 +29,7 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
       suppressHydrationWarning
       className={`${montserrat.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className='flex min-h-full flex-col'>
+      <body suppressHydrationWarning className='flex min-h-full flex-col'>
         <ThemeProvider
           attribute='class'
           defaultTheme='system'

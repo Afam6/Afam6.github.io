@@ -1,6 +1,7 @@
 import { Mail } from 'lucide-react';
 import { TypedHeading } from '@/components/sections/typed-heading';
 import { AdroitOrb } from '@/components/sections/adroit-orb';
+import { CursorParticles } from './cursor-particles';
 
 export function Hero() {
   return (
@@ -8,7 +9,9 @@ export function Hero() {
       id='top'
       className='relative flex min-h-svh items-center overflow-hidden px-6 pt-16'
     >
-      <div className='mx-auto flex w-full max-w-6xl flex-col items-center py-24 text-center'>
+      <CursorParticles />
+
+      <div className='relative z-10 mx-auto flex w-full max-w-6xl flex-col items-center py-24 text-center'>
         <p className='text-sm font-medium text-foreground/60 sm:text-[15px]'>
           Software Developer · Melbourne, Australia
         </p>
