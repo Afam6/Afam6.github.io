@@ -18,9 +18,9 @@ import {
 
 const navigation = [
   { label: 'Work', href: '#work' },
-  { label: 'About', href: '#about' },
+  { label: 'Capabilities', href: '#capabilities' },
   { label: 'Experience', href: '#experience' },
-  { label: 'Credentials', href: '#credentials' },
+  { label: 'About', href: '#about' },
 ];
 
 export function SiteHeader() {

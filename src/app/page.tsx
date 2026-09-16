@@ -1,6 +1,10 @@
 import { SiteHeader } from '@/components/layout/site-header';
+import { Capabilities } from '@/components/sections/capabilities';
 import { Hero } from '@/components/sections/hero';
 import { SelectedWork } from '@/components/sections/selected-work';
+import { Experience } from '@/components/sections/experience';
+import { About } from '@/components/sections/about';
+import { Contact } from '@/components/sections/contact';
 
 export default function Home() {
   return (
@@ -10,33 +14,10 @@ export default function Home() {
       <main>
         <Hero />
         <SelectedWork />
-
-        <section id='about' className='min-h-[80vh] border-t px-6 py-28'>
-          <div className='mx-auto max-w-7xl'>
-            <p className='text-sm text-muted-foreground'>02</p>
-            <h2 className='mt-4 text-4xl font-semibold tracking-tight'>
-              About
-            </h2>
-          </div>
-        </section>
-
-        <section id='experience' className='min-h-[80vh] border-t px-6 py-28'>
-          <div className='mx-auto max-w-7xl'>
-            <p className='text-sm text-muted-foreground'>03</p>
-            <h2 className='mt-4 text-4xl font-semibold tracking-tight'>
-              Experience
-            </h2>
-          </div>
-        </section>
-
-        <section id='credentials' className='min-h-[80vh] border-t px-6 py-28'>
-          <div className='mx-auto max-w-7xl'>
-            <p className='text-sm text-muted-foreground'>04</p>
-            <h2 className='mt-4 text-4xl font-semibold tracking-tight'>
-              Credentials
-            </h2>
-          </div>
-        </section>
+        <Capabilities />
+        <Experience />
+        <About />
+        <Contact />
       </main>
     </>
   );
