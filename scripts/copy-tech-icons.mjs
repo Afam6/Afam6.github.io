@@ -24,6 +24,7 @@ const icons = {
   'karma.svg': ['karma', 'karma-original.svg'],
   'numpy.svg': ['numpy', 'numpy-original.svg'],
   'oracle.svg': ['oracle', 'oracle-original.svg'],
+  'prolog.svg': ['prolog', 'prolog-original.svg'],
   'pycharm.svg': ['pycharm', 'pycharm-original.svg'],
   'sql-server.svg': ['microsoftsqlserver', 'microsoftsqlserver-original.svg'],
   'visual-studio.svg': ['visualstudio', 'visualstudio-original.svg'],

@@ -2,6 +2,8 @@
 
 import { motion, useReducedMotion } from 'motion/react';
 
+import { TechnologyMark } from '@/components/shared/technology-mark';
+
 type ExperienceItem = {
   company: string;
   mark: string;
@@ -107,7 +109,7 @@ export function Experience() {
             </h2>
           </div>
 
-          <p className='max-w-xl text-base leading-7 text-foreground/60 sm:text-lg sm:leading-8 lg:justify-self-end'>
+          <p className='max-w-xl text-base leading-7 text-foreground/70 sm:text-lg sm:leading-8 lg:justify-self-end'>
             Eight years of turning complex requirements into dependable
             software—across banking, civic technology and government-scale
             digital services.
@@ -157,17 +159,17 @@ export function Experience() {
                       </div>
 
                       <div className='mt-8'>
-                        <p className='text-sm font-medium text-foreground/45'>
+                        <p className='text-sm font-medium text-foreground/60'>
                           {item.period}
                         </p>
-                        <p className='mt-1 text-sm text-foreground/45'>
+                        <p className='mt-1 text-sm text-foreground/60'>
                           {item.location}
                         </p>
 
                         <h3 className='mt-6 text-2xl font-semibold tracking-[-0.035em] sm:text-3xl'>
                           {item.company}
                         </h3>
-                        <p className='mt-2 text-sm font-medium leading-6 text-foreground/65'>
+                        <p className='mt-2 text-sm font-medium leading-6 text-foreground/75'>
                           {item.role}
                         </p>
                       </div>
@@ -182,11 +184,11 @@ export function Experience() {
                         {item.highlights.map((highlight) => (
                           <li
                             key={highlight}
-                            className='grid gap-3 py-5 text-sm leading-6 text-foreground/60 sm:grid-cols-[1.5rem_1fr] sm:text-base sm:leading-7'
+                            className='grid gap-3 py-5 text-sm leading-6 text-foreground/70 sm:grid-cols-[1.5rem_1fr] sm:text-base sm:leading-7'
                           >
                             <span
                               aria-hidden='true'
-                              className='font-medium text-foreground/35'
+                              className='font-medium text-foreground/50'
                             >
                               ↳
                             </span>
@@ -195,14 +197,12 @@ export function Experience() {
                         ))}
                       </ul>
 
-                      <div className='mt-7 flex flex-wrap gap-2'>
+                      <div
+                        className='mt-7 flex flex-wrap gap-2.5'
+                        aria-label='Technologies used'
+                      >
                         {item.technologies.map((technology) => (
-                          <span
-                            key={technology}
-                            className='rounded-full border px-3 py-1.5 text-xs font-medium text-foreground/55'
-                          >
-                            {technology}
-                          </span>
+                          <TechnologyMark key={technology} name={technology} />
                         ))}
                       </div>
                     </div>

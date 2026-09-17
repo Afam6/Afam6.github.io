@@ -4,6 +4,7 @@ import { Geist_Mono, Montserrat } from 'next/font/google';
 import { ThemeProvider } from '@/components/providers/theme-provider';
 
 import './globals.css';
+import { ScrollToTop } from '@/components/layout/scroll-to-top';
 
 const montserrat = Montserrat({
   variable: '--font-montserrat',
@@ -37,6 +38,7 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
           disableTransitionOnChange
         >
           {children}
+          <ScrollToTop />
         </ThemeProvider>
       </body>
     </html>

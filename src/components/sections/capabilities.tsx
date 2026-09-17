@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useState } from 'react';
 import {
   siAndroid,
@@ -43,11 +44,13 @@ import {
 } from 'simple-icons';
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
 
+import { TechnologyMark } from '@/components/shared/technology-mark';
+
 type Technology = {
   name: string;
   context: string;
   icon?: SimpleIcon;
-  devicon?: string;
+  iconSrc?: string;
   fallback?: string;
 };
 
@@ -74,18 +77,18 @@ const categories: Category[] = [
       {
         name: 'C#',
         context: 'Professional',
-        devicon: 'devicon-csharp-plain',
+        iconSrc: '/tech-icons/csharp.svg',
       },
       { name: '.NET', context: 'Professional', icon: siDotnet },
       {
         name: 'SQL Server',
         context: 'Professional',
-        devicon: 'devicon-microsoftsqlserver-plain',
+        iconSrc: '/tech-icons/sql-server.svg',
       },
       {
         name: 'Microsoft Azure',
         context: 'Professional',
-        devicon: 'devicon-azure-plain',
+        iconSrc: '/tech-icons/azure.svg',
       },
     ],
   },
@@ -101,12 +104,12 @@ const categories: Category[] = [
       {
         name: 'C#',
         context: 'Professional',
-        devicon: 'devicon-csharp-plain',
+        iconSrc: '/tech-icons/csharp.svg',
       },
       {
         name: 'Java',
         context: 'Prior experience',
-        devicon: 'devicon-java-plain',
+        iconSrc: '/tech-icons/java.svg',
       },
       { name: 'Python', context: 'Prior experience', icon: siPython },
       { name: 'Ruby', context: 'Prior experience', icon: siRuby },
@@ -118,7 +121,7 @@ const categories: Category[] = [
       {
         name: 'XML',
         context: 'University',
-        devicon: 'devicon-xml-plain',
+        iconSrc: '/tech-icons/xml.svg',
       },
       { name: 'XSLT', context: 'Professional', fallback: 'XSLT' },
     ],
@@ -155,12 +158,12 @@ const categories: Category[] = [
       {
         name: 'Apache',
         context: 'Prior experience',
-        devicon: 'devicon-apache-plain',
+        iconSrc: '/tech-icons/apache.svg',
       },
       {
         name: 'XML',
         context: 'University',
-        devicon: 'devicon-xml-plain',
+        iconSrc: '/tech-icons/xml.svg',
       },
       { name: 'XSLT', context: 'Professional', fallback: 'XSLT' },
     ],
@@ -175,7 +178,7 @@ const categories: Category[] = [
       {
         name: 'SQL Server',
         context: 'Professional',
-        devicon: 'devicon-microsoftsqlserver-plain',
+        iconSrc: '/tech-icons/sql-server.svg',
       },
       { name: 'MongoDB', context: 'Project work', icon: siMongodb },
       {
@@ -187,28 +190,28 @@ const categories: Category[] = [
       {
         name: 'Microsoft Azure',
         context: 'Professional',
-        devicon: 'devicon-azure-plain',
+        iconSrc: '/tech-icons/azure.svg',
       },
       {
         name: 'Azure Functions',
         context: 'Professional',
-        devicon: 'devicon-azure-plain',
+        iconSrc: '/tech-icons/azure.svg',
       },
       {
         name: 'AWS',
         context: 'Prior experience',
-        devicon: 'devicon-amazonwebservices-plain-wordmark',
+        iconSrc: '/tech-icons/aws.svg',
       },
       { name: 'Docker', context: 'Professional', icon: siDocker },
       {
         name: 'Heroku',
         context: 'Prior experience',
-        devicon: 'devicon-heroku-plain',
+        iconSrc: '/tech-icons/heroku.svg',
       },
       {
         name: 'Oracle SQL Developer',
         context: 'Earlier experience',
-        devicon: 'devicon-oracle-original',
+        iconSrc: '/tech-icons/oracle.svg',
       },
     ],
   },
@@ -224,17 +227,17 @@ const categories: Category[] = [
       {
         name: 'GitLab',
         context: 'Professional',
-        devicon: 'devicon-gitlab-plain',
+        iconSrc: '/tech-icons/gitlab.svg',
       },
       {
         name: 'Azure DevOps',
         context: 'Professional',
-        devicon: 'devicon-azuredevops-plain',
+        iconSrc: '/tech-icons/azure-devops.svg',
       },
       {
         name: 'Jenkins',
         context: 'Professional',
-        devicon: 'devicon-jenkins-line',
+        iconSrc: '/tech-icons/jenkins.svg',
       },
       {
         name: 'Perforce Helix Core',
@@ -245,14 +248,14 @@ const categories: Category[] = [
       {
         name: 'Karma',
         context: 'Professional',
-        devicon: 'devicon-karma-plain',
+        iconSrc: '/tech-icons/karma.svg',
       },
       { name: 'Jasmine', context: 'Professional', icon: siJasmine },
       { name: 'MSTest', context: 'Professional', fallback: 'MT' },
       {
         name: 'JUnit',
         context: 'Prior experience',
-        devicon: 'devicon-junit-plain',
+        iconSrc: '/tech-icons/junit.svg',
       },
       { name: 'xUnit', context: 'Prior experience', fallback: 'xU' },
       {
@@ -263,7 +266,7 @@ const categories: Category[] = [
       {
         name: 'Heroku',
         context: 'Prior experience',
-        devicon: 'devicon-heroku-plain',
+        iconSrc: '/tech-icons/heroku.svg',
       },
     ],
   },
@@ -277,22 +280,22 @@ const categories: Category[] = [
       {
         name: 'VS Code',
         context: 'Current',
-        devicon: 'devicon-vscode-plain',
+        iconSrc: '/tech-icons/vscode.svg',
       },
       {
         name: 'Visual Studio',
         context: 'Professional',
-        devicon: 'devicon-visualstudio-plain',
+        iconSrc: '/tech-icons/visual-studio.svg',
       },
       {
         name: 'Jira',
         context: 'Professional',
-        devicon: 'devicon-jira-plain',
+        iconSrc: '/tech-icons/jira.svg',
       },
       {
         name: 'Confluence',
         context: 'Professional',
-        devicon: 'devicon-confluence-plain',
+        iconSrc: '/tech-icons/confluence.svg',
       },
       { name: 'Claude Code', context: 'Current', icon: siClaudecode },
       {
@@ -314,12 +317,12 @@ const categories: Category[] = [
       {
         name: 'Eclipse',
         context: 'University',
-        devicon: 'devicon-eclipse-plain',
+        iconSrc: '/tech-icons/eclipse.svg',
       },
       {
         name: 'Oracle SQL Developer',
         context: 'Earlier experience',
-        devicon: 'devicon-oracle-original',
+        iconSrc: '/tech-icons/oracle.svg',
       },
     ],
   },
@@ -345,22 +348,22 @@ const categories: Category[] = [
       {
         name: 'Anaconda',
         context: 'University',
-        devicon: 'devicon-anaconda-original',
+        iconSrc: '/tech-icons/anaconda.svg',
       },
       {
         name: 'NumPy',
         context: 'University',
-        devicon: 'devicon-numpy-plain',
+        iconSrc: '/tech-icons/numpy.svg',
       },
       {
         name: 'Jupyter',
         context: 'University',
-        devicon: 'devicon-jupyter-plain',
+        iconSrc: '/tech-icons/jupyter.svg',
       },
       {
         name: 'PyCharm',
         context: 'University',
-        devicon: 'devicon-pycharm-plain',
+        iconSrc: '/tech-icons/pycharm.svg',
       },
       { name: 'CUDA', context: 'University', icon: siNvidia },
       { name: 'Pure Data', context: 'University', fallback: 'Pd' },
@@ -392,22 +395,22 @@ const categories: Category[] = [
       {
         name: 'Arduino',
         context: 'University',
-        devicon: 'devicon-arduino-plain',
+        iconSrc: '/tech-icons/arduino.svg',
       },
       {
         name: 'Eclipse',
         context: 'University',
-        devicon: 'devicon-eclipse-plain',
+        iconSrc: '/tech-icons/eclipse.svg',
       },
       {
         name: 'Apache',
         context: 'Prior experience',
-        devicon: 'devicon-apache-plain',
+        iconSrc: '/tech-icons/apache.svg',
       },
       {
         name: 'XML',
         context: 'University',
-        devicon: 'devicon-xml-plain',
+        iconSrc: '/tech-icons/xml.svg',
       },
       { name: 'XSLT', context: 'Professional', fallback: 'XSLT' },
       {
@@ -422,26 +425,24 @@ const categories: Category[] = [
 ];
 
 function TechnologyIcon({ technology }: { technology: Technology }) {
-  if (technology.devicon) {
+  if (technology.iconSrc) {
     return (
-      <span
-        aria-hidden='true'
-        className='grid size-14 place-items-center rounded-2xl border bg-muted shadow-sm'
-      >
-        <i className={`${technology.devicon} colored text-[2rem] leading-none`} />
+      <span className='grid size-14 place-items-center rounded-2xl border bg-white shadow-sm'>
+        <Image
+          src={technology.iconSrc}
+          alt=''
+          aria-hidden='true'
+          width={32}
+          height={32}
+          unoptimized
+          className='size-8 object-contain'
+        />
       </span>
     );
   }
 
   if (!technology.icon) {
-    return (
-      <span
-        aria-hidden='true'
-        className='grid size-14 place-items-center rounded-2xl border bg-muted text-xs font-semibold tracking-[-0.04em] shadow-sm'
-      >
-        {technology.fallback ?? technology.name.slice(0, 2)}
-      </span>
-    );
+    return <TechnologyMark name={technology.name} size='lg' />;
   }
 
   const useCurrentColor = ['000000', 'FFFFFF'].includes(
@@ -487,7 +488,7 @@ export function Capabilities() {
             </h2>
           </div>
 
-          <p className='max-w-xl text-base leading-7 text-foreground/60 sm:text-lg sm:leading-8 lg:justify-self-end'>
+          <p className='max-w-xl text-base leading-7 text-foreground/70 sm:text-lg sm:leading-8 lg:justify-self-end'>
             A toolkit built across university, professional engineering and
             years of personal experimentation—from foundational programming
             concepts to modern full-stack product development.
@@ -545,7 +546,7 @@ export function Capabilities() {
                   {activeCategory.heading}
                 </h3>
 
-                <p className='max-w-lg text-sm leading-6 text-foreground/60 sm:text-base sm:leading-7 lg:justify-self-end'>
+                <p className='max-w-lg text-sm leading-6 text-foreground/70 sm:text-base sm:leading-7 lg:justify-self-end'>
                   {activeCategory.description}
                 </p>
               </div>
@@ -572,7 +573,7 @@ export function Capabilities() {
                         {technology.name}
                       </h4>
 
-                      <p className='mt-1 text-[11px] font-medium uppercase tracking-[0.08em] text-foreground/40'>
+                      <p className='mt-1 text-[11px] font-medium uppercase tracking-[0.08em] text-foreground/55'>
                         {technology.context}
                       </p>
                     </div>
