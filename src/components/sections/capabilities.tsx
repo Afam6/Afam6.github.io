@@ -27,11 +27,8 @@ import {
   siMui,
   siMysql,
   siNextdotjs,
-  siNodedotjs,
   siNvidia,
   siPhp,
-  siPostgresql,
-  siPython,
   siReact,
   siRuby,
   siRubyonrails,
@@ -85,6 +82,7 @@ const categories: Category[] = [
         context: 'Professional',
         iconSrc: '/tech-icons/sql-server.svg',
       },
+      { name: 'MongoDB', context: 'Professional', icon: siMongodb },
       {
         name: 'Microsoft Azure',
         context: 'Professional',
@@ -111,7 +109,11 @@ const categories: Category[] = [
         context: 'Prior experience',
         iconSrc: '/tech-icons/java.svg',
       },
-      { name: 'Python', context: 'Prior experience', icon: siPython },
+      {
+        name: 'Python',
+        context: 'Prior experience',
+        iconSrc: '/tech-icons/python.svg',
+      },
       { name: 'Ruby', context: 'Prior experience', icon: siRuby },
       { name: 'Swift', context: 'Earlier exploration', icon: siSwift },
       { name: 'PHP', context: 'Earlier exploration', icon: siPhp },
@@ -138,7 +140,11 @@ const categories: Category[] = [
       { name: 'Angular', context: 'Professional', icon: siAngular },
       { name: 'AngularJS', context: 'Prior experience', icon: siAngular },
       { name: 'ASP.NET Core', context: 'Professional', icon: siDotnet },
-      { name: 'Node.js', context: 'Project work', icon: siNodedotjs },
+      {
+        name: 'Node.js',
+        context: 'Project work',
+        iconSrc: '/tech-icons/nodejs.svg',
+      },
       { name: 'Express', context: 'Project work', icon: siExpress },
       { name: 'Django', context: 'Prior experience', icon: siDjango },
       {
@@ -153,6 +159,16 @@ const categories: Category[] = [
       { name: 'shadcn/ui', context: 'Current', icon: siShadcnui },
       { name: 'Material UI', context: 'Professional', icon: siMui },
       { name: 'Bootstrap', context: 'Prior experience', icon: siBootstrap },
+      {
+        name: 'Three.js',
+        context: 'Current',
+        iconSrc: '/tech-icons/threejs.svg',
+      },
+      {
+        name: 'Vite',
+        context: 'Current',
+        iconSrc: '/tech-icons/vite.svg',
+      },
       { name: 'jQuery', context: 'Professional', icon: siJquery },
       { name: 'jQuery UI', context: 'Professional', icon: siJquery },
       {
@@ -180,11 +196,11 @@ const categories: Category[] = [
         context: 'Professional',
         iconSrc: '/tech-icons/sql-server.svg',
       },
-      { name: 'MongoDB', context: 'Project work', icon: siMongodb },
+      { name: 'MongoDB', context: 'Professional', icon: siMongodb },
       {
         name: 'PostgreSQL',
         context: 'Prior experience',
-        icon: siPostgresql,
+        iconSrc: '/tech-icons/postgresql.svg',
       },
       { name: 'MySQL', context: 'Prior experience', icon: siMysql },
       {
@@ -225,6 +241,11 @@ const categories: Category[] = [
       { name: 'Git', context: 'Current', icon: siGit },
       { name: 'GitHub', context: 'Current', icon: siGithub },
       {
+        name: 'GitHub Actions',
+        context: 'Current',
+        iconSrc: '/tech-icons/github-actions.svg',
+      },
+      {
         name: 'GitLab',
         context: 'Professional',
         iconSrc: '/tech-icons/gitlab.svg',
@@ -246,6 +267,11 @@ const categories: Category[] = [
       },
       { name: 'Docker', context: 'Professional', icon: siDocker },
       {
+        name: 'Vercel',
+        context: 'Project work',
+        iconSrc: '/tech-icons/vercel.svg',
+      },
+      {
         name: 'Karma',
         context: 'Professional',
         iconSrc: '/tech-icons/karma.svg',
@@ -257,11 +283,16 @@ const categories: Category[] = [
         context: 'Prior experience',
         iconSrc: '/tech-icons/junit.svg',
       },
-      { name: 'xUnit', context: 'Prior experience', fallback: 'xU' },
       {
-        name: 'IIS / App Service',
+        name: 'xUnit',
+        context: 'Prior experience',
+        iconSrc: '/tech-icons/xunit.svg',
+      },
+      { name: 'IIS', context: 'Professional', iconSrc: '/tech-icons/iis.svg' },
+      {
+        name: 'Azure App Service',
         context: 'Professional',
-        fallback: 'IIS',
+        iconSrc: '/tech-icons/azure-app-service.png',
       },
       {
         name: 'Heroku',
@@ -297,17 +328,37 @@ const categories: Category[] = [
         context: 'Professional',
         iconSrc: '/tech-icons/confluence.svg',
       },
+      {
+        name: 'Postman',
+        context: 'Professional',
+        iconSrc: '/tech-icons/postman.svg',
+      },
+      {
+        name: 'Linux',
+        context: 'Prior experience',
+        iconSrc: '/tech-icons/linux.svg',
+      },
+      {
+        name: 'PowerShell',
+        context: 'Professional',
+        iconSrc: '/tech-icons/powershell.svg',
+      },
+      {
+        name: 'Bash',
+        context: 'Prior experience',
+        iconSrc: '/tech-icons/bash.svg',
+      },
       { name: 'Claude Code', context: 'Current', icon: siClaudecode },
       {
         name: 'Google Antigravity',
         context: 'Current',
-        fallback: 'AG',
+        iconSrc: '/tech-icons/google-antigravity.png',
       },
       { name: 'Sitecore', context: 'Professional', icon: siSitecore },
       {
         name: 'SharePoint',
         context: 'Professional',
-        fallback: 'SP',
+        iconSrc: '/tech-icons/sharepoint.png',
       },
       {
         name: 'Android Studio',
@@ -336,15 +387,24 @@ const categories: Category[] = [
       {
         name: 'OpenAI products',
         context: 'Current',
-        fallback: 'AI',
+        iconSrc: '/tech-icons/openai.svg',
       },
       { name: 'Claude Code', context: 'Current', icon: siClaudecode },
       {
         name: 'Google Antigravity',
         context: 'Current',
-        fallback: 'AG',
+        iconSrc: '/tech-icons/google-antigravity.png',
       },
-      { name: 'Python', context: 'Prior experience', icon: siPython },
+      {
+        name: 'Python',
+        context: 'Prior experience',
+        iconSrc: '/tech-icons/python.svg',
+      },
+      {
+        name: 'Matplotlib',
+        context: 'University',
+        iconSrc: '/tech-icons/matplotlib.svg',
+      },
       {
         name: 'Anaconda',
         context: 'University',
@@ -366,7 +426,11 @@ const categories: Category[] = [
         iconSrc: '/tech-icons/pycharm.svg',
       },
       { name: 'CUDA', context: 'University', icon: siNvidia },
-      { name: 'Pure Data', context: 'University', fallback: 'Pd' },
+      {
+        name: 'Pure Data',
+        context: 'University',
+        iconSrc: '/tech-icons/pure-data.svg',
+      },
     ],
   },
   {
@@ -416,10 +480,14 @@ const categories: Category[] = [
       {
         name: 'Pure Data',
         context: 'University',
-        fallback: 'Pd',
+        iconSrc: '/tech-icons/pure-data.svg',
       },
       { name: 'CUDA', context: 'University', icon: siNvidia },
-      { name: 'MVC', context: 'Foundation', fallback: 'MVC' },
+      {
+        name: 'MVC',
+        context: 'Foundation',
+        iconSrc: '/tech-icons/mvc.svg',
+      },
     ],
   },
 ];

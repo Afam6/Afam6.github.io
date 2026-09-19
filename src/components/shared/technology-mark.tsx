@@ -1,14 +1,9 @@
 import Image from 'next/image';
 import {
-  AudioWaveform,
   Braces,
-  CodeXml,
   Database,
   FlaskConical,
   Landmark,
-  PanelsTopLeft,
-  Server,
-  Sparkles,
   Workflow,
 } from 'lucide-react';
 import {
@@ -47,6 +42,16 @@ const localIcons: Record<string, string> = {
   'Azure DevOps': '/tech-icons/azure-devops.svg',
   Jenkins: '/tech-icons/jenkins.svg',
   Prolog: '/tech-icons/prolog.svg',
+  'Azure App Service': '/tech-icons/azure-app-service.png',
+  IIS: '/tech-icons/iis.svg',
+  SharePoint: '/tech-icons/sharepoint.png',
+  xUnit: '/tech-icons/xunit.svg',
+  'Oracle SQL Developer': '/tech-icons/oracle.svg',
+  XSLT: '/tech-icons/xml.svg',
+  'OpenAI products': '/tech-icons/openai.svg',
+  'Google Antigravity': '/tech-icons/google-antigravity.png',
+  'Pure Data': '/tech-icons/pure-data.svg',
+  MVC: '/tech-icons/mvc.svg',
 };
 
 const fallbackLabels: Record<string, string> = {
@@ -75,28 +80,8 @@ function GenericMark({ name }: { name: string }) {
     return <Workflow className={className} strokeWidth={1.8} />;
   }
 
-  if (name === 'XSLT') {
-    return <CodeXml className={className} strokeWidth={1.8} />;
-  }
-
-  if (name === 'MSTest' || name === 'xUnit') {
+  if (name === 'MSTest') {
     return <FlaskConical className={className} strokeWidth={1.8} />;
-  }
-
-  if (name === 'IIS / App Service') {
-    return <Server className={className} strokeWidth={1.8} />;
-  }
-
-  if (name === 'OpenAI products' || name === 'Google Antigravity') {
-    return <Sparkles className={className} strokeWidth={1.8} />;
-  }
-
-  if (name === 'SharePoint' || name === 'MVC') {
-    return <PanelsTopLeft className={className} strokeWidth={1.8} />;
-  }
-
-  if (name === 'Pure Data') {
-    return <AudioWaveform className={className} strokeWidth={1.8} />;
   }
 
   return null;
@@ -113,24 +98,14 @@ export function TechnologyMark({ name, size = 'sm' }: TechnologyMarkProps) {
     'SQL',
     'Banking systems',
     'Workflow automation',
-    'XSLT',
     'MSTest',
-    'xUnit',
-    'IIS / App Service',
-    'OpenAI products',
-    'Google Antigravity',
-    'SharePoint',
-    'Pure Data',
-    'MVC',
   ].includes(name);
 
   return (
     <span
-      title={name}
       aria-label={name}
-      className={`group/mark relative grid shrink-0 place-items-center border shadow-sm ${
-        localIcon ? 'bg-white' : 'bg-background'
-      } ${dimension}`}
+      tabIndex={0}
+      className={`group/mark relative grid shrink-0 place-items-center border border-black/10 bg-white text-slate-900 shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${dimension}`}
     >
       {localIcon ? (
         <Image
@@ -152,7 +127,7 @@ export function TechnologyMark({ name, size = 'sm' }: TechnologyMarkProps) {
           fill='currentColor'
           style={{
             color: ['000000', 'FFFFFF'].includes(simpleIcon.hex.toUpperCase())
-              ? 'currentColor'
+              ? '#111827'
               : `#${simpleIcon.hex}`,
           }}
         >
@@ -172,6 +147,17 @@ export function TechnologyMark({ name, size = 'sm' }: TechnologyMarkProps) {
           {fallbackLabels[name] ?? name.slice(0, 4).toUpperCase()}
         </span>
       ) : null}
+
+      <span
+        role='tooltip'
+        className='pointer-events-none absolute bottom-[calc(100%+0.55rem)] left-1/2 z-30 -translate-x-1/2 translate-y-1 whitespace-nowrap rounded-md bg-foreground px-2.5 py-1.5 text-[11px] font-medium leading-none text-background opacity-0 shadow-md transition-[opacity,transform] duration-150 group-hover/mark:translate-y-0 group-hover/mark:opacity-100 group-focus-visible/mark:translate-y-0 group-focus-visible/mark:opacity-100'
+      >
+        {name}
+        <span
+          aria-hidden='true'
+          className='absolute left-1/2 top-full size-2 -translate-x-1/2 -translate-y-1/2 rotate-45 bg-foreground'
+        />
+      </span>
     </span>
   );
 }

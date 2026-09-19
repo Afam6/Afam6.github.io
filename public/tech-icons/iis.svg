@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="title">
+  <title id="title">IIS</title>
+  <path fill="#0ea5e9" d="m12 30 42-6v35H12V30Zm47-7 57-8v44H59V23ZM12 64h42v35l-42-6V64Zm47 0h57v44l-57-8V64Z"/>
+  <path fill="#111827" d="M73 42h8v44h-8zm15 0h8v44h-8zm14 0h8v44h-8z" opacity=".92"/>
+</svg>
